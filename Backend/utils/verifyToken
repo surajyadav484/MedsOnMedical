@@ -1,0 +1,11 @@
+const jwt = require("jsonwebtoken");
+
+exports.verifyToken = (req, res, next) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user) => {
+    if (err) res.send(403).json({ err: "forbidden" });
+    req.user = user;
+    next();
+  });
+};

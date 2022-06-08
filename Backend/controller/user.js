@@ -6,7 +6,6 @@ const transporter = require("../utils/mail");
 const otp = require("../utils/otpGenerator");
 const { json } = require("express/lib/response");
 const jwt = require("jsonwebtoken");
-const { logger } = require("../utils/mail");
 
 const OTP = otp.otpeGenerator();
 //console.log(crypto.randomBytes(32).toString("hex"));
@@ -20,7 +19,8 @@ exports.getUser = (req, res, next) => {
 
 exports.registerUser = async (req, res, next) => {
   try {
-    const { firstName, lastName, email, password } = req.body;
+    const { firstName, lastName, email, password, cart = [] } = req.body;
+    console.log(cart);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       console.log(errors.array()[0]);
@@ -61,6 +61,7 @@ exports.registerUser = async (req, res, next) => {
         lastName,
         email,
         password: hashedPassword,
+        cart,
       });
       const result = await user.save();
       if (result) {
@@ -68,7 +69,8 @@ exports.registerUser = async (req, res, next) => {
       }
     }
   } catch (err) {
-    return res.status(400).json({ err: err });
+    console.log(err);
+    return res.status(400).json({ err: err.message });
   }
 };
 

@@ -5,6 +5,7 @@ const { body } = require("express-validator");
 const validatorUtils = require("../utils/validator");
 const verification = require("../utils/verifyToken");
 
+// http://localhost:3000/users/
 router.get("/", verification.verifyToken, userController.getUser);
 
 // http://localhost:3000/users/userRegistration
@@ -16,4 +17,5 @@ router.post(
 
 // http://localhost:3000/users/login
 router.post("/login", userController.loginUser);
+
 module.exports = router;

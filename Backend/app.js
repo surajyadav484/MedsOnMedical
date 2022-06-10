@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 
 const userRoutes = require("./routes/user");
 const shopRoutes = require("./routes/shop");
+const addressRoutes = require("./routes/address");
 
 const express = require("express");
 const app = express();
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 
 app.use("/users", userRoutes);
 app.use(shopRoutes);
+app.use("/users", addressRoutes);
 
 const username = process.env.DB_USERNAME;
 const password = process.env.DB_PASSWORD;

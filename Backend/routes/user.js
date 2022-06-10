@@ -3,10 +3,10 @@ const router = express.Router();
 const userController = require("../controller/user");
 const { body } = require("express-validator");
 const validatorUtils = require("../utils/validator");
-const verification = require("../utils/verifyToken");
+const UtilityMehtod = require("../utils/UtilityMethod");
 
 // http://localhost:3000/users/
-router.get("/", verification.verifyToken, userController.getUser);
+router.get("/", UtilityMehtod.verifyToken, userController.getUser);
 
 // http://localhost:3000/users/userRegistration
 router.post(
